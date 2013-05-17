@@ -1,0 +1,13 @@
+#!/usr/bin/env coffee
+
+require('nez').objective 'find a promises framework', 
+
+    assignTo: 'me',
+
+    description: """ 
+
+        also, figure out what 'promise' ACTUALLY MEANS
+
+    """, (requirements) ->
+
+        

@@ -10,8 +10,11 @@
     }
   ],
   "dependencies": {
+    "q": "~0.9.3"
   },
   "devDependencies": {
+    "nez": "0.0.7",
+    "should": "~1.2.2"
   },
   "repository": "git@github.com:nomilous/plex-emitter.git"
 }
