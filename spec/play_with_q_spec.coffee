@@ -34,6 +34,19 @@ require('nez').realize 'PlayWithQ', (PlayWithQ, test, context, q) ->
                 i.should.equal 3
                 test done
 
+
+        it 'handles exceptions by calling them into a 2nd function passed to the promise', (done) -> 
+
+            pend = q.fcall -> throw new Error 'eeee'
+
+            pend.then(
+                (res) ->
+                (err) -> 
+                    err.message.should.equal 'eeee'
+                    test done
+            )
+
+
     context 'q.defer()', (it) -> 
 
         it 'creates a promise / resolve pair', (done) -> 
@@ -78,4 +91,42 @@ require('nez').realize 'PlayWithQ', (PlayWithQ, test, context, q) ->
                 result.should.equal 1
                 test done
 
+
+    context 'q.all()', (it) -> 
+
+        it 'processes an array of promises', (done) -> 
+
+            q.all([
+
+                q.fcall -> 1
+                q.fcall -> 2
+
+            ]).spread (one, two) -> 
+
+                one.should.equal 1
+                two.should.equal 2
+                test done
+
+        it 'calls error into second function', (done) -> 
+
+            q.all([
+
+                q.fcall -> 1
+
+                q.fcall -> throw 'eeee'
+
+                q.fcall -> 3
+
+            ]).spread(
+
+                (one, two, three) -> 
+
+                    # 
+                    # does not get called
+                    # all non erroring results are lost
+                    #
+
+                (error) -> test done
+
+            )
 
