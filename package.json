@@ -10,7 +10,8 @@
     }
   ],
   "dependencies": {
-    "q": "~0.9.3"
+    "q": "~0.9.3",
+    "when": "~2.1.0"
   },
   "devDependencies": {
     "nez": "0.0.7",
