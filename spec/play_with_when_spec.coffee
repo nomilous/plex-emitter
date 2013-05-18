@@ -110,16 +110,22 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
 
             doSomething  = -> 
                 defer    = When.defer()
-                setTimeout -> 
-                    defer.notify '50%'
-                , 10
-                setTimeout -> 
-                    defer.notify '75%'
-                , 20
-                setTimeout -> 
-                    defer.notify '100%'
-                    defer.resolve 'result'
-                , 30
+                setTimeout( 
+                    -> defer.notify '50%'
+                    10
+                )
+                setTimeout( 
+                    -> defer.notify '75%'
+                    20
+                )
+                setTimeout(
+                    -> defer.notify '99%'
+                    30
+                )
+                setTimeout(
+                    -> defer.resolve 'result'
+                    40
+                )
                 defer.promise
 
 
@@ -128,7 +134,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
                 -> test done
                 -> #error
                 (progress) -> console.log progress
-                
+
             )
 
 
