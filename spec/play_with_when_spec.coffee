@@ -25,7 +25,6 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
 
         that 'does not let exceptions out??', (done) -> 
 
-            threw    = false
             deferred = When.defer()
             deferred.promise.then(
 
@@ -52,4 +51,35 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
             )
 
             deferred.resolve 1
+
+
+        that 'has a rejector', (done) -> 
+
+            defer = When.defer()
+            defer.promise.then(
+
+                -> 
+                -> test done
+
+            )
+            defer.reject()
+
+
+        that 'receives error', (done) ->
+
+            error = ''
+            defer = When.defer()
+            defer.promise.then(
+
+                -> 
+                -> error = arguments[0]
+
+            )
+            defer.reject new Error 'eeee'
+
+
+            setTimeout -> 
+                error.should.match /eeee/
+                test done
+            ,10
 
