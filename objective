@@ -1,13 +1,15 @@
 #!/usr/bin/env coffee
 
-require('nez').objective 'find a promises framework', 
+require('nez').objective 'plex-emitter', 
 
-    assignTo: 'me',
+    assignTo: 'me'
+    description: """
 
-    description: """ 
+    pupsub with promises (which, i guess, is not longer strictly pubsub)
 
-        also, figure out what 'promise' ACTUALLY MEANS
+    """, (requirements) -> 
 
-    """, (requirements) ->
-
+        requirements 'subscribers provide promise handlers and timeout config'
+        requirements 'publishers provide a final handler'
+        requirements 'subscribers registered as optional do not prevent the call to final handler'
         

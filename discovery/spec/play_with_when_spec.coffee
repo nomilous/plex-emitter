@@ -94,6 +94,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
                     # long running thing
                     #
                     #defer.reject( new Error 'error' ) 
+                    defer.notify 'status'
                     defer.resolve 'result'
 
                 , 1000
@@ -103,6 +104,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
 
                 success = (result) -> test done
                 error   = (reason) -> 
+                notify  = (status) -> 
 
             )
 
