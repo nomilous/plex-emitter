@@ -7,9 +7,27 @@ require('nez').objective 'plex-emitter',
 
     pupsub with promises (which, i guess, is not longer strictly pubsub)
 
-    """, (requirements) -> 
+    """, (Requirement) -> 
 
-        requirements 'subscribers provide promise handlers and timeout config'
-        requirements 'publishers provide a final handler'
-        requirements 'subscribers registered as optional do not prevent the call to final handler'
+        Requirement 'subscribers provide promise handlers and timeout config'
+        Requirement 'publishers provide a final handler'
+        Requirement 'subscribers registered as optional do not prevent the call to final handler'
         
+        #
+        # for example, if Requirement was an emitter
+        # 
+        # 
+        # Requirement.emit 'event:requirement'
+        # 
+        #     label: 'name of requirement'
+        #     details: ''
+        #     timeout: 5.days  
+        #     mode: 'first'    # 
+        #                      # result event fires on first 
+        #                      # subscriber to complete
+        #                      #
+        # 
+        #     success: (result) -> # success callback function
+        #     update: (status) -> # update
+        #     error: (reason) -> # error
+        #     
