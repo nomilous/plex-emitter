@@ -83,3 +83,26 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
                 test done
             ,10
 
+
+
+        that 'can be constructed into a promise function', (done) ->
+
+            doSomething = -> 
+                defer = When.defer()
+                setTimeout -> 
+                    #
+                    # long running thing
+                    #
+                    #defer.reject( new Error 'error' ) 
+                    defer.resolve 'result'
+
+                , 1000
+                return defer.promise
+
+            doSomething().then(
+
+                success = (result) -> test done
+                error   = (reason) -> 
+
+            )
+
