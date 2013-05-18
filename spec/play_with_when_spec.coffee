@@ -1,11 +1,11 @@
 require('nez').realize 'PlayWithWhen', (When, test, context, should) -> 
 
-    context 'when.defer()', (that) ->
+    context 'when.defer()', (it) ->
 
         deferred = When.defer()
 
 
-        that 'has a promise and resolver and then() to handle', (done) ->
+        it 'has a promise and resolver and then() to handle', (done) ->
 
             deferred = When.defer()
             deferred.promise.then(
@@ -23,7 +23,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
             deferred.reject new Error '...because it already resolved'
 
 
-        that 'does not let exceptions out??', (done) -> 
+        it 'does not let exceptions out??', (done) -> 
 
             deferred = When.defer()
             deferred.promise.then(
@@ -53,7 +53,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
             deferred.resolve 1
 
 
-        that 'has a rejector', (done) -> 
+        it 'has a rejector', (done) -> 
 
             defer = When.defer()
             defer.promise.then(
@@ -65,7 +65,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
             defer.reject()
 
 
-        that 'receives error', (done) ->
+        it 'receives error', (done) ->
 
             error = ''
             defer = When.defer()
@@ -85,7 +85,7 @@ require('nez').realize 'PlayWithWhen', (When, test, context, should) ->
 
 
 
-        that 'can be constructed into a promise function', (done) ->
+        it 'can be constructed into a promise function', (done) ->
 
             doSomething = -> 
                 defer = When.defer()
