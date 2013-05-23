@@ -143,6 +143,13 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                 new Thing 'two'
                 new Thing 'three'
                 new Thing 'four'
+                new Thing 'five'
+                new Thing 'six'
+                new Thing 'seven'
+                new Thing 'eight'
+                new Thing 'nine'
+                new Thing 'ten'
+                new Thing 'eleven'
 
             ]
 
@@ -157,11 +164,23 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                                                              #  first task takes longest
                                                              #  (to ensure the sequence)
                                                              # 
-                    -> nodefn.call Thing.doo, targets.pop(), i / 1.5
+                    -> nodefn.call Thing.doo, targets.pop(), i /= 1.5
 
             ).then (results) -> 
 
-                results.should.eql ['one', 'two', 'three', 'four']
+                results.should.eql [
+                    'one'
+                    'two'
+                    'three'
+                    'four'
+                    'five'
+                    'six'
+                    'seven'
+                    'eight'
+                    'nine'
+                    'ten'
+                    'eleven'
+                ]
                 test done
            
 
