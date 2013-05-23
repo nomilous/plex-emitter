@@ -14,6 +14,19 @@ module.exports = Thing = (function() {
     }, duration);
   };
 
+  Thing.doo = function(instance, duration, callback) {
+    return setTimeout(function() {
+      console.log(instance);
+      return callback(null, instance.result);
+    }, duration);
+  };
+
+  Thing.fails = function(instance, duration, callback) {
+    return setTimeout(function() {
+      return callback(new Error(instance.result + ' failed'));
+    }, duration);
+  };
+
   return Thing;
 
 })();

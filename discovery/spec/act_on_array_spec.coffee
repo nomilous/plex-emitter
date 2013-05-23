@@ -1,4 +1,5 @@
-nodefn = require 'when/node/function'
+nodefn   = require 'when/node/function'
+sequence = require 'when/sequence' 
 
 require('nez').realize 'ActOnArray', (Thing, test, context, should) -> 
 
@@ -32,7 +33,21 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                 test done
 
 
-        #
-        #
-        # um?
-        #
+        it 'works with instance assignent to class method', (done) -> 
+
+            nodefn.call( Thing.doo, thing, 5 ).then (result) ->
+                
+                result.should.equal 'result'
+                test done
+
+
+        it 'errors', (done) -> 
+
+            nodefn.call( Thing.fails, thing, 5 ).then(
+
+                (result) -> 
+                (error) -> 
+                    error.should.match /result failed/
+                    test done
+
+            )

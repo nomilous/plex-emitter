@@ -10,3 +10,19 @@ module.exports = class Thing
 
         , duration
 
+    @doo: (instance, duration, callback) -> 
+
+        setTimeout ->
+
+            console.log instance
+            callback null, instance.result 
+
+        , duration
+
+    @fails: (instance, duration, callback) -> 
+
+        setTimeout ->
+
+            callback new Error(instance.result + ' failed') 
+
+        , duration
