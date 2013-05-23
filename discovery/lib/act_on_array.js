@@ -15,8 +15,8 @@ module.exports = Thing = (function() {
   };
 
   Thing.doo = function(instance, duration, callback) {
+    console.log('on', instance);
     return setTimeout(function() {
-      console.log(instance);
       return callback(null, instance.result);
     }, duration);
   };

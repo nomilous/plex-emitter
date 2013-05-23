@@ -51,3 +51,62 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                     test done
 
             )
+
+    context 'arrays of tasks', (it) -> 
+
+
+        it 'can resolve array in sequence', (done) -> 
+
+            thing1 = new Thing 'one'
+            thing2 = new Thing 'two'
+            thing3 = new Thing 'three'
+            thing4 = new Thing 'four'
+
+            sequence( [
+
+                -> nodefn.call( Thing.doo, thing1, 5 )
+                -> nodefn.call( Thing.doo, thing2, 5 )
+                -> nodefn.call( Thing.doo, thing3, 5 )
+                -> nodefn.call( Thing.doo, thing4, 5 )
+
+            ] ).then (results) -> 
+
+                results.should.eql ['one', 'two', 'three', 'four']
+                test done
+            
+
+
+        it 'can build task array in loop', (done) -> 
+
+            things = [
+
+                new Thing 'one'
+                new Thing 'two'
+                new Thing 'three'
+                new Thing 'four'
+
+            ]
+
+            tasks = []
+
+            for thing in things
+
+                tasks.push -> nodefn.call( Thing.doo, thing, 5 )
+
+            sequence( tasks ).then (results) -> 
+
+                #
+                # results.should.eql ['one', 'two', 'three', 'four']
+                # 
+                #   Operates on 4th thing 4 times... 
+                # 
+                #          Which makes sense: 
+                # 
+                #          The value of thing by the time the 
+                #          calls are made is the last thing.
+                # 
+
+                test done
+
+
+           

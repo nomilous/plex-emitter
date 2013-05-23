@@ -12,9 +12,11 @@ module.exports = class Thing
 
     @doo: (instance, duration, callback) -> 
 
+        console.log 'on', instance
+
         setTimeout ->
 
-            console.log instance
+            #console.log instance
             callback null, instance.result 
 
         , duration
