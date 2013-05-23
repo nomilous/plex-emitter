@@ -10,7 +10,7 @@ module.exports = class Thing
 
         , duration
 
-    @doo: (instance, duration, callback) -> 
+    @doo: (instance,  duration,  callback) -> 
 
         console.log 'on', instance
 

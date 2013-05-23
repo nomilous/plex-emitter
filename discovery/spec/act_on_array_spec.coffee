@@ -109,4 +109,59 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                 test done
 
 
+        it 'can process a task array in loop by poping a second targets array', (done) -> 
+
+            things = [
+
+                new Thing 'one'
+                new Thing 'two'
+                new Thing 'three'
+                new Thing 'four'
+
+            ]
+
+            tasks   = []
+            targets = []
+
+            for thing in things
+
+                targets.unshift thing
+                tasks.push -> nodefn.call Thing.doo, targets.pop(), 5
+
+
+            sequence( tasks ).then (results) -> 
+
+                results.should.eql ['one', 'two', 'three', 'four']
+                test done
+
+
+        it 'can do the same again but build the array inline', (done) -> 
+
+            things = [
+
+                new Thing 'one'
+                new Thing 'two'
+                new Thing 'three'
+                new Thing 'four'
+
+            ]
+
+            targets = []
+            i       = 1000
+
+            sequence( 
+
+                for thing in things
+
+                    targets.unshift thing                    # 
+                                                             #  first task takes longest
+                                                             #  (to ensure the sequence)
+                                                             # 
+                    -> nodefn.call Thing.doo, targets.pop(), i / 1.5
+
+            ).then (results) -> 
+
+                results.should.eql ['one', 'two', 'three', 'four']
+                test done
            
+
