@@ -182,5 +182,43 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
                     'eleven'
                 ]
                 test done
+
+
+        it 'stops on error', (done) -> 
+
+            things = [
+
+                new Thing 'one'     #
+                new Thing 'two'     # these results are 'lost', or rather: 
+                new Thing 'three'   # they are not sent to the success 
+                new Thing 'four'    # callback
+                new Thing 'five'    #
+                new Thing 'six'
+                new Thing 7         # <-------- causes error
+                new Thing 'eight'   
+                new Thing 'nine'    # 
+                new Thing 'ten'     #   these dont run
+                new Thing 'eleven'  # 
+
+            ]
+
+            targets = []
+            
+            sequence( for thing in things
+
+                targets.unshift thing
+                -> nodefn.call Thing.doo, targets.pop(), 5
+
+            ).then(
+
+                success = (results) -> 
+
+                error = (reason) -> 
+                    console.log 'ERROR--------->', reason
+                    reason.should.match /far too numbersome/
+                    test done
+
+            )
+           
            
 

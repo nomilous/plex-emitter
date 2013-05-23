@@ -17,6 +17,10 @@ module.exports = Thing = (function() {
   Thing.doo = function(instance, duration, callback) {
     console.log('on', instance);
     return setTimeout(function() {
+      if (typeof instance.result === 'number') {
+        callback(new Error('far too numbersome'));
+        return;
+      }
       return callback(null, instance.result);
     }, duration);
   };

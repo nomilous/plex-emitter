@@ -16,7 +16,11 @@ module.exports = class Thing
 
         setTimeout ->
 
-            #console.log instance
+            if typeof instance.result == 'number'
+            
+                callback new Error 'far too numbersome'
+                return
+
             callback null, instance.result 
 
         , duration
