@@ -203,22 +203,61 @@ require('nez').realize 'ActOnArray', (Thing, test, context, should) ->
             ]
 
             targets = []
-            
+
+
+            #
+            # when/sequence():
+            #  
+            #   https://github.com/cujojs/when/blob/master/docs/api.md#whensequence
+            # 
             sequence( for thing in things
 
+                #
+                # build list of targets to pop() 
+                # as args into the sequence
+                # 
+
                 targets.unshift thing
-                -> nodefn.call Thing.doo, targets.pop(), 5
+
+                #
+                # populate  the  array  of functions
+                # for sequence(  array  )
+                # 
+                # each function is called in sequence...
+                #
+                
+                -> 
+
+                    #
+                    # ...and returns a promise based task 
+                    # converted from the node (err,res) based 
+                    # callbacker
+                    #
+                    nodefn.call Thing.doo, targets.pop(), 5
 
             ).then(
 
                 success = (results) -> 
 
+                    #
+                    # RESults array from all (err, RES) callbacks
+                    # that ran in the sequence
+                    # 
+
                 error = (reason) -> 
+
+                    # 
+                    # ERRor from (ERR, res) callback on a failing
+                    # target in the sequence
+                    # 
+                    # 
+                    # !! an error terminates the sequence !! 
+                    # 
+
                     console.log 'ERROR--------->', reason
                     reason.should.match /far too numbersome/
                     test done
 
             )
-           
-           
+
 
